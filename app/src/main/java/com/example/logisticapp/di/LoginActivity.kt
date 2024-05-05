@@ -72,7 +72,7 @@ class LoginActivity : AppCompatActivity() {
                 val user = snapshot.getValue(User::class.java)
                 if (user != null) {
                     when (user.role) {
-                        "admin" -> startActivity(Intent(this@LoginActivity, RegistrationActivity::class.java))
+                        "Админ" -> startActivity(Intent(this@LoginActivity, RegistrationActivity::class.java))
                         "Логист" -> startActivity(Intent(this@LoginActivity, LogisticOrderActivity::class.java))
                         "Исполнитель" -> startActivity(Intent(this@LoginActivity, ExecutorMainActivity::class.java))
 

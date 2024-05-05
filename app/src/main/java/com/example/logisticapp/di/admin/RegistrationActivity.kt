@@ -3,8 +3,10 @@ package com.example.logisticapp.di.admin
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Spinner
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -30,7 +32,7 @@ class RegistrationActivity : AppCompatActivity() {
     private lateinit var editTextLoginPassword: EditText
     private lateinit var editTextFirstName: EditText
     private lateinit var editTextLastName: EditText
-    private lateinit var editTextRole: EditText
+    private lateinit var spinnerDrivers: Spinner
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,11 +46,16 @@ class RegistrationActivity : AppCompatActivity() {
         editTextLoginPassword = findViewById(R.id.editTextPassword)
         editTextFirstName = findViewById(R.id.editTextFirstName)
         editTextLastName = findViewById(R.id.editTextLastName)
-        editTextRole = findViewById(R.id.editTextRole)
+        spinnerDrivers = findViewById(R.id.spinnerDrivers)
+
+        val roleList = listOf("Админ", "Логист", "Исполнитель")
+        val adapter = ArrayAdapter(this@RegistrationActivity, android.R.layout.simple_spinner_item, roleList)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        spinnerDrivers.adapter = adapter
 
         button.setOnClickListener(View.OnClickListener {
             registration(editTextLoginEmail.text.toString(), editTextLoginPassword.text.toString(),
-                editTextFirstName.text.toString(), editTextLastName.text.toString(), editTextRole.text.toString())
+                editTextFirstName.text.toString(), editTextLastName.text.toString(), spinnerDrivers.selectedItem.toString())
         })
 
     }
@@ -76,7 +83,6 @@ class RegistrationActivity : AppCompatActivity() {
                                 editTextLoginPassword.setText("")
                                 editTextFirstName.setText("")
                                 editTextLastName.setText("")
-                                editTextRole.setText("")
 
                                 Toast.makeText(this@RegistrationActivity, "Пользователь создан", Toast.LENGTH_SHORT).show()
 
