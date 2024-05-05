@@ -83,7 +83,6 @@ class LogisticAllInfoActivity : AppCompatActivity() {
                 .addOnSuccessListener {
                     Toast.makeText(this@LogisticAllInfoActivity, "Заказ изменен", Toast.LENGTH_SHORT).show()
                     startActivity(Intent(this@LogisticAllInfoActivity, LogisticOrderActivity::class.java))
-                    finish()
                 }
                 .addOnFailureListener {
                     // Обработка ошибки

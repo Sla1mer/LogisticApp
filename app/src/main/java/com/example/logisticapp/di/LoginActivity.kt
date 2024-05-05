@@ -80,7 +80,6 @@ class LoginActivity : AppCompatActivity() {
                             println("Такой роли не существует")
                         }
                     }
-                    finish()
                 }
 
             }

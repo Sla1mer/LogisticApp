@@ -50,7 +50,6 @@ class LogisticOrderActivity : AppCompatActivity() {
 
         createOrderBtn.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this@LogisticOrderActivity, LogisticMainActivity::class.java))
-            finish()
         })
 
         prepareOrderList()
