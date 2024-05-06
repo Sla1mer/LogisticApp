@@ -9,20 +9,15 @@ import android.widget.EditText
 import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.ViewCompat
-import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import com.example.logisticapp.R
-import com.example.logisticapp.di.admin.RegistrationActivity
-import com.example.logisticapp.domain.models.Order
 import com.example.logisticapp.domain.models.OrderRecycler
 import com.example.logisticapp.domain.models.User
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.Query
 import com.google.firebase.database.ValueEventListener
 import com.yandex.mapkit.geometry.Point
 import com.yandex.mapkit.mapview.MapView
@@ -42,6 +37,7 @@ class LogisticAllInfoActivity : AppCompatActivity() {
     private lateinit var spinnerDrivers: Spinner
     private lateinit var order: OrderRecycler
     private lateinit var saveBtn: Button
+    private lateinit var buttonRemoveOrder: Button
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -58,15 +54,17 @@ class LogisticAllInfoActivity : AppCompatActivity() {
         spinnerDrivers = findViewById(R.id.spinnerDrivers)
 
         saveBtn = findViewById(R.id.buttonSaveOrder)
+        buttonRemoveOrder = findViewById(R.id.buttonRemoveOrder)
 
-        val imageProvider = ImageProvider.fromResource(this, R.drawable.placemark_icon)
+        val imageProviderLoad = ImageProvider.fromResource(this, R.drawable.load)
+        val imageProviderUnload = ImageProvider.fromResource(this, R.drawable.unload)
         val placemark = mapView.map.mapObjects.addPlacemark().apply {
             geometry = Point(order.start!!.lat, order.start!!.lon)
-            setIcon(imageProvider)
+            setIcon(imageProviderLoad)
         }
         val placemark2 = mapView.map.mapObjects.addPlacemark().apply {
             geometry = Point(order.finish!!.lat, order.finish!!.lon)
-            setIcon(imageProvider)
+            setIcon(imageProviderUnload)
         }
 
         saveBtn.setOnClickListener(View.OnClickListener {
@@ -87,6 +85,19 @@ class LogisticAllInfoActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     // Обработка ошибки
                 }
+        })
+
+        if (order.status == "Выполняется" || order.status == "Выполнено") {
+            buttonRemoveOrder.isVisible = false
+        }
+
+        buttonRemoveOrder.setOnClickListener(View.OnClickListener {
+            val myRef = databaseReference.child("orders").child(order.UID!!)
+
+            myRef.removeValue()
+
+            Toast.makeText(this@LogisticAllInfoActivity, "Заказ удален", Toast.LENGTH_SHORT).show()
+            startActivity(Intent(this@LogisticAllInfoActivity, LogisticOrderActivity::class.java))
         })
 
         prepareDataView()
