@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.ArrayAdapter
+import android.widget.TextView
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
@@ -32,6 +33,8 @@ class LogisticOrderActivity : AppCompatActivity() {
     private lateinit var swipe: SwipeRefreshLayout
 
     private lateinit var createOrderBtn: FloatingActionButton
+    private lateinit var countAllOrderText: TextView
+    private lateinit var countProcessOrderText: TextView
 
     val databaseReference: DatabaseReference = FirebaseDatabase.getInstance("https://logisticapp-5ba6a-default-rtdb.europe-west1.firebasedatabase.app").reference
 
@@ -49,6 +52,10 @@ class LogisticOrderActivity : AppCompatActivity() {
         recyclerView!!.adapter = recyclerViewOrderAdapter
 
         createOrderBtn = findViewById(R.id.createOrder)
+
+        countProcessOrderText = findViewById(R.id.countProcessOrderText)
+        countAllOrderText = findViewById(R.id.countAllOrderText)
+
 
         createOrderBtn.setOnClickListener(View.OnClickListener {
             startActivity(Intent(this@LogisticOrderActivity, LogisticMainActivity::class.java))
@@ -85,7 +92,10 @@ class LogisticOrderActivity : AppCompatActivity() {
                 }
 
                 recyclerViewOrderAdapter!!.notifyDataSetChanged()
+                countAllOrderText.setText(orderList.size)
 
+                val ordersInProgress = orderList.filter { it.status == "Выполняется"}
+                countProcessOrderText.setText(ordersInProgress.size)
             }
 
             override fun onCancelled(databaseError: DatabaseError) {

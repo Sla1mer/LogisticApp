@@ -163,7 +163,7 @@ class LogisticMainActivity : AppCompatActivity() {
         val placemark = map.mapObjects.addPlacemark(point)
 
         // Устанавливаем изображение маркера (по желанию)
-        if (pointArr.size > 1) {
+        if (pointArr.size > 0) {
             placemark.setIcon(ImageProvider.fromResource(this@LogisticMainActivity, R.drawable.unload))
         } else {
             placemark.setIcon(ImageProvider.fromResource(this@LogisticMainActivity, R.drawable.load))
