@@ -170,7 +170,7 @@ class LogisticMainActivity : AppCompatActivity() {
 
         // Обновляем карту
         map.move(
-            CameraPosition(point, 0f, 0.0f, 0.0f),
+            CameraPosition(point, 6f, 0.0f, 0.0f),
             Animation(Animation.Type.SMOOTH, 0.5f),
             null
         )

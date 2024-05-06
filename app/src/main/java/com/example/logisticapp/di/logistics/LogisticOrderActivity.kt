@@ -10,6 +10,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.example.logisticapp.R
 import com.example.logisticapp.di.admin.RegistrationActivity
 import com.example.logisticapp.di.logistics.recyclerview.RecyclerViewOrderAdapter
@@ -28,6 +29,7 @@ class LogisticOrderActivity : AppCompatActivity() {
     private var recyclerView: RecyclerView? = null
     private var recyclerViewOrderAdapter: RecyclerViewOrderAdapter? = null
     private var orderList = mutableListOf<OrderRecycler>()
+    private lateinit var swipe: SwipeRefreshLayout
 
     private lateinit var createOrderBtn: FloatingActionButton
 
@@ -52,6 +54,14 @@ class LogisticOrderActivity : AppCompatActivity() {
             startActivity(Intent(this@LogisticOrderActivity, LogisticMainActivity::class.java))
         })
 
+        swipe = findViewById(R.id.swipeRefreshLayout)
+
+        swipe.setOnRefreshListener {
+            orderList.clear()
+            prepareOrderList()
+            swipe.isRefreshing = false
+        }
+
         prepareOrderList()
     }
 
@@ -68,7 +78,7 @@ class LogisticOrderActivity : AppCompatActivity() {
 
                         var orderRecycler : OrderRecycler = OrderRecycler(order.start, order.finish,
                             order.nameStart, order.nameFinish, order.descProduct, order.executor, order.status,
-                            orderId)
+                            orderId, null)
 
                         orderList.add(orderRecycler)
                     }

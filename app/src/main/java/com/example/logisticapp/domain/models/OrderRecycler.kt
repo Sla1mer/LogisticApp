@@ -12,6 +12,8 @@ class OrderRecycler : Serializable {
     var executor: String? = null
     var status: String? = null
     var UID: String? = null
+    var queue: Int? = null
+
 
     constructor() // Пустой конструктор для использования в Firebase
 
@@ -23,7 +25,9 @@ class OrderRecycler : Serializable {
         descProduct: String?,
         executor: String?,
         status: String?,
-        UID: String?
+        UID: String?,
+        queue: Int?
+
     ) {
         this.start = start
         this.finish = finish
@@ -33,5 +37,7 @@ class OrderRecycler : Serializable {
         this.executor = executor
         this.status = status
         this.UID = UID
+        this.queue = queue
+
     }
 }

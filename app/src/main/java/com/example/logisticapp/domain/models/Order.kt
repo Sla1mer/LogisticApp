@@ -1,5 +1,7 @@
 package com.example.logisticapp.domain.models
 
+import java.util.Queue
+
 class Order {
     var start: Point? = null
     var finish: Point? = null
@@ -9,6 +11,7 @@ class Order {
     var descProduct: String? = null
     var executor: String? = null
     var status: String? = null
+    var queue: Int? = null
 
     constructor() // Пустой конструктор для использования в Firebase
 
@@ -19,7 +22,8 @@ class Order {
         nameFinish: String?,
         descProduct: String?,
         executor: String?,
-        status: String?
+        status: String?,
+        queue: Int?
     ) {
         this.start = start
         this.finish = finish
@@ -28,5 +32,6 @@ class Order {
         this.descProduct = descProduct
         this.executor = executor
         this.status = status
+        this.queue = queue
     }
 }

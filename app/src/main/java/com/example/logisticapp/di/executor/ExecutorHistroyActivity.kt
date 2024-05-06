@@ -61,7 +61,7 @@ class ExecutorHistroyActivity : AppCompatActivity() {
 
                         var orderRecycler : OrderRecycler = OrderRecycler(order.start, order.finish,
                             order.nameStart, order.nameFinish, order.descProduct, order.executor, order.status,
-                            orderId)
+                            orderId, order.queue)
 
                         filteredOrders.add(orderRecycler)
                     }
