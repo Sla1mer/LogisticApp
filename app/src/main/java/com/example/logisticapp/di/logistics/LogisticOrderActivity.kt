@@ -92,10 +92,10 @@ class LogisticOrderActivity : AppCompatActivity() {
                 }
 
                 recyclerViewOrderAdapter!!.notifyDataSetChanged()
-                countAllOrderText.setText(orderList.size)
+                countAllOrderText.setText(orderList.size.toString())
 
                 val ordersInProgress = orderList.filter { it.status == "Выполняется"}
-                countProcessOrderText.setText(ordersInProgress.size)
+                countProcessOrderText.setText(ordersInProgress.size.toString())
             }
 
             override fun onCancelled(databaseError: DatabaseError) {
